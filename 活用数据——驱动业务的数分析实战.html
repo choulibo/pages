@@ -1,0 +1,688 @@
+<!doctype html>
+<html>
+<head>
+<meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
+<title>活用数据(1)</title><style type='text/css'>html {overflow-x: initial !important;}:root { --bg-color: #ffffff; --text-color: #333333; --select-text-bg-color: #B5D6FC; --select-text-font-color: auto; --monospace: "Lucida Console",Consolas,"Courier",monospace; }
+html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+body { margin: 0px; padding: 0px; height: auto; bottom: 0px; top: 0px; left: 0px; right: 0px; font-size: 1rem; line-height: 1.42857143; overflow-x: hidden; background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; tab-size: 4; background-position: inherit inherit; background-repeat: inherit inherit; }
+iframe { margin: auto; }
+a.url { word-break: break-all; }
+a:active, a:hover { outline: 0px; }
+.in-text-selection, ::selection { text-shadow: none; background: var(--select-text-bg-color); color: var(--select-text-font-color); }
+#write { margin: 0px auto; height: auto; width: inherit; word-break: normal; word-wrap: break-word; position: relative; white-space: normal; overflow-x: visible; padding-top: 40px; }
+#write.first-line-indent p { text-indent: 2em; }
+#write.first-line-indent li p, #write.first-line-indent p * { text-indent: 0px; }
+#write.first-line-indent li { margin-left: 2em; }
+.for-image #write { padding-left: 8px; padding-right: 8px; }
+body.typora-export { padding-left: 30px; padding-right: 30px; }
+.typora-export .footnote-line, .typora-export li, .typora-export p { white-space: pre-wrap; }
+@media screen and (max-width: 500px) { 
+  body.typora-export { padding-left: 0px; padding-right: 0px; }
+  #write { padding-left: 20px; padding-right: 20px; }
+  .CodeMirror-sizer { margin-left: 0px !important; }
+  .CodeMirror-gutters { display: none !important; }
+}
+#write li > figure:last-child { margin-bottom: 0.5rem; }
+#write ol, #write ul { position: relative; }
+img { max-width: 100%; vertical-align: middle; }
+button, input, select, textarea { color: inherit; font-family: inherit; font-size: inherit; font-style: inherit; font-variant-caps: inherit; font-weight: inherit; font-stretch: inherit; line-height: inherit; }
+input[type="checkbox"], input[type="radio"] { line-height: normal; padding: 0px; }
+*, ::after, ::before { box-sizing: border-box; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p, #write pre { width: inherit; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p { position: relative; }
+p { line-height: inherit; }
+h1, h2, h3, h4, h5, h6 { break-after: avoid-page; break-inside: avoid; orphans: 2; }
+p { orphans: 4; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.6rem; }
+h4 { font-size: 1.4rem; }
+h5 { font-size: 1.2rem; }
+h6 { font-size: 1rem; }
+.md-math-block, .md-rawblock, h1, h2, h3, h4, h5, h6, p { margin-top: 1rem; margin-bottom: 1rem; }
+.hidden { display: none; }
+.md-blockmeta { color: rgb(204, 204, 204); font-weight: 700; font-style: italic; }
+a { cursor: pointer; }
+sup.md-footnote { padding: 2px 4px; background-color: rgba(238, 238, 238, 0.701961); color: rgb(85, 85, 85); border-top-left-radius: 4px; border-top-right-radius: 4px; border-bottom-right-radius: 4px; border-bottom-left-radius: 4px; cursor: pointer; }
+sup.md-footnote a, sup.md-footnote a:hover { color: inherit; text-transform: inherit; text-decoration: inherit; }
+#write input[type="checkbox"] { cursor: pointer; width: inherit; height: inherit; }
+figure { overflow-x: auto; margin: 1.2em 0px; max-width: calc(100% + 16px); padding: 0px; }
+figure > table { margin: 0px !important; }
+tr { break-inside: avoid; break-after: auto; }
+thead { display: table-header-group; }
+table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; text-align: left; }
+table.md-table td { min-width: 32px; }
+.CodeMirror-gutters { border-right-width: 0px; background-color: inherit; }
+.CodeMirror-linenumber { }
+.CodeMirror { text-align: left; }
+.CodeMirror-placeholder { opacity: 0.3; }
+.CodeMirror pre { padding: 0px 4px; }
+.CodeMirror-lines { padding: 0px; }
+div.hr:focus { cursor: none; }
+#write pre { white-space: pre-wrap; }
+#write.fences-no-line-wrapping pre { white-space: pre; }
+#write pre.ty-contain-cm { white-space: normal; }
+.CodeMirror-gutters { margin-right: 4px; }
+.md-fences { font-size: 0.9rem; display: block; break-inside: avoid; text-align: left; overflow: visible; white-space: pre; background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; position: relative !important; background-position: inherit inherit; background-repeat: inherit inherit; }
+.md-diagram-panel { width: 100%; margin-top: 10px; text-align: center; padding-top: 0px; padding-bottom: 8px; overflow-x: auto; }
+#write .md-fences.mock-cm { white-space: pre-wrap; }
+.md-fences.md-fences-with-lineno { padding-left: 0px; }
+#write.fences-no-line-wrapping .md-fences.mock-cm { white-space: pre; overflow-x: auto; }
+.md-fences.mock-cm.md-fences-with-lineno { padding-left: 8px; }
+.CodeMirror-line, twitterwidget { break-inside: avoid; }
+.footnotes { opacity: 0.8; font-size: 0.9rem; margin-top: 1em; margin-bottom: 1em; }
+.footnotes + .footnotes { margin-top: 0px; }
+.md-reset { margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: top; text-decoration: none; text-shadow: none; float: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; line-height: normal; font-weight: 400; text-align: left; box-sizing: content-box; direction: ltr; background-position: 0px 0px; background-repeat: initial initial; }
+li div { padding-top: 0px; }
+blockquote { margin: 1rem 0px; }
+li .mathjax-block, li p { margin: 0.5rem 0px; }
+li { margin: 0px; position: relative; }
+blockquote > :last-child { margin-bottom: 0px; }
+blockquote > :first-child, li > :first-child { margin-top: 0px; }
+.footnotes-area { color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; white-space: normal; }
+#write .footnote-line { white-space: pre-wrap; }
+@media print { 
+  body, html { border: 1px solid transparent; height: 99%; break-after: avoid-page; break-before: avoid-page; }
+  #write { margin-top: 0px; padding-top: 0px; border-color: transparent !important; }
+  .typora-export * { -webkit-print-color-adjust: exact; }
+  html.blink-to-pdf { font-size: 13px; }
+  .typora-export #write { padding-left: 32px; padding-right: 32px; padding-bottom: 0px; break-after: avoid-page; }
+  .typora-export #write::after { height: 0px; }
+}
+.footnote-line { margin-top: 0.714em; font-size: 0.7em; }
+a img, img a { cursor: pointer; }
+pre.md-meta-block { font-size: 0.8rem; min-height: 0.8rem; white-space: pre-wrap; background-color: rgb(204, 204, 204); display: block; overflow-x: hidden; background-position: initial initial; background-repeat: initial initial; }
+p > .md-image:only-child:not(.md-img-error) img, p > img:only-child { display: block; margin: auto; }
+p > .md-image:only-child { display: inline-block; width: 100%; }
+#write .MathJax_Display { margin: 0.8em 0px 0px; }
+.md-math-block { width: 100%; }
+.md-math-block:not(:empty)::after { display: none; }
+[contenteditable="true"]:active, [contenteditable="true"]:focus { outline: 0px; box-shadow: none; }
+.md-task-list-item { position: relative; list-style-type: none; }
+.task-list-item.md-task-list-item { padding-left: 0px; }
+.md-task-list-item > input { position: absolute; top: 0px; left: 0px; margin-left: -1.2em; margin-top: calc(1em - 10px); border: none; }
+.math { font-size: 1rem; }
+.md-toc { min-height: 3.58rem; position: relative; font-size: 0.9rem; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; }
+.md-toc-content { position: relative; margin-left: 0px; }
+.md-toc-content::after, .md-toc::after { display: none; }
+.md-toc-item { display: block; color: rgb(65, 131, 196); }
+.md-toc-item a { text-decoration: none; }
+.md-toc-inner:hover { text-decoration: underline; }
+.md-toc-inner { display: inline-block; cursor: pointer; }
+.md-toc-h1 .md-toc-inner { margin-left: 0px; font-weight: 700; }
+.md-toc-h2 .md-toc-inner { margin-left: 2em; }
+.md-toc-h3 .md-toc-inner { margin-left: 4em; }
+.md-toc-h4 .md-toc-inner { margin-left: 6em; }
+.md-toc-h5 .md-toc-inner { margin-left: 8em; }
+.md-toc-h6 .md-toc-inner { margin-left: 10em; }
+@media screen and (max-width: 48em) { 
+  .md-toc-h3 .md-toc-inner { margin-left: 3.5em; }
+  .md-toc-h4 .md-toc-inner { margin-left: 5em; }
+  .md-toc-h5 .md-toc-inner { margin-left: 6.5em; }
+  .md-toc-h6 .md-toc-inner { margin-left: 8em; }
+}
+a.md-toc-inner { font-size: inherit; font-style: inherit; font-weight: inherit; line-height: inherit; }
+.footnote-line a:not(.reversefootnote) { color: inherit; }
+.md-attr { display: none; }
+.md-fn-count::after { content: "."; }
+code, pre, samp, tt { font-family: var(--monospace); }
+kbd { margin: 0px 0.1em; padding: 0.1em 0.6em; font-size: 0.8em; color: rgb(36, 39, 41); background-color: rgb(255, 255, 255); border: 1px solid rgb(173, 179, 185); border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; box-shadow: rgba(12, 13, 14, 0.2) 0px 1px 0px, rgb(255, 255, 255) 0px 0px 0px 2px inset; white-space: nowrap; vertical-align: middle; background-position: initial initial; background-repeat: initial initial; }
+.md-comment { color: rgb(162, 127, 3); opacity: 0.8; font-family: var(--monospace); }
+code { text-align: left; }
+a.md-print-anchor { white-space: pre !important; border: none !important; display: inline-block !important; position: absolute !important; width: 1px !important; right: 0px !important; outline: 0px !important; text-shadow: initial !important; background-position: 0px 0px !important; background-repeat: initial initial !important; }
+.md-inline-math .MathJax_SVG .noError { display: none !important; }
+.html-for-mac .inline-math-svg .MathJax_SVG { vertical-align: 0.2px; }
+.md-math-block .MathJax_SVG_Display { text-align: center; margin: 0px; position: relative; text-indent: 0px; max-width: none; max-height: none; min-height: 0px; min-width: 100%; width: auto; overflow-y: hidden; display: block !important; }
+.MathJax_SVG_Display, .md-inline-math .MathJax_SVG_Display { width: auto; margin: inherit; display: inline-block !important; }
+.MathJax_SVG .MJX-monospace { font-family: var(--monospace); }
+.MathJax_SVG .MJX-sans-serif { font-family: sans-serif; }
+.MathJax_SVG { display: inline; font-style: normal; font-weight: 400; line-height: normal; zoom: 90%; text-indent: 0px; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0px; min-height: 0px; border: 0px; padding: 0px; margin: 0px; }
+.MathJax_SVG * { transition: none; }
+.MathJax_SVG_Display svg { vertical-align: middle !important; margin-bottom: 0px !important; margin-top: 0px !important; }
+.os-windows.monocolor-emoji .md-emoji { font-family: "Segoe UI Symbol", sans-serif; }
+.md-diagram-panel > svg { max-width: 100%; }
+[lang="mermaid"] svg, [lang="flow"] svg { max-width: 100%; height: auto; }
+[lang="mermaid"] .node text { font-size: 1rem; }
+table tr th { border-bottom-width: 0px; }
+video { max-width: 100%; display: block; margin: 0px auto; }
+iframe { max-width: 100%; width: 100%; border: none; }
+.highlight td, .highlight tr { border: 0px; }
+
+
+@charset "utf-8";
+
+/* techo-typora style */
+:root {
+    --active-file-bg-color: #dadada;
+    --active-file-bg-color: rgba(32, 43, 51, 0.63);
+    --active-file-text-color: white;
+    --bg-color: #f9f5ed;
+    --text-color: #6e4832;
+    --side-bar-bg-color: #f5f5f5;
+    --control-text-color: #666;
+    --primary-color: #6e4832;
+}
+
+html {
+    color: #6e4832;
+    background: #f9f5ed;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    text-rendering: optimizelegibility;
+    font-size: 16px;
+    -webkit-font-smoothing: initial;
+}
+
+content {
+    background: #f9f5ed;
+}
+
+/* input mode  */
+#write {
+    max-width: 960px;
+    padding-top: 2em;
+    padding-left: 60px;
+    padding-right: 60px;
+    min-height: calc(100vh - 6em);
+    -webkit-font-smoothing: antialiased;
+    font-size: 16px;
+}
+
+.typora-node #write {
+    min-height: calc(100% - 6em);
+}
+
+/* meta - message - block */
+pre.md-meta-block {
+    color: rgba(146, 115, 91, 0.81);
+    padding: 1em;
+    border-radius: 2px;
+    font-size: 14px;
+    background: rgba(251, 246, 222, 0.5);
+}
+
+@media screen and (max-width: 800px) {
+    html {
+        font-size: 14px;
+    }
+
+    #write {
+        padding-left: 30px;
+        background: #f9f5ed;
+        padding-right: 30px;
+        font-size: 14px;
+    }
+}
+
+@media screen and (min-width: 1100px) {
+    body, #footer-word-count-info {
+        background: #f5f5f5;
+    }
+
+    body.pin-outline,
+    .pin-outline #footer-word-count-info,
+    .pin-outline footer {
+        background: #f9f5ed;
+    }
+
+    #write {
+        max-width: 1000px;
+        padding: 40px 60px;
+        background: #f9f5ed;
+        margin: 3em auto 3em;
+    }
+
+    /* paper outline */
+    .pin-outline #write {
+        max-width: 1000px;
+        background: #f9f5ed;
+        margin: 0 0 0;
+        border: 0;
+        padding-left: 60px;
+        padding-right: 60px;
+    }
+
+    footer {
+        background-color: transparent;
+    }
+}
+
+@media screen and (min-width: 1300px) {
+    body.pin-outline,
+    .pin-outline #footer-word-count-info,
+    .pin-outline footer {
+        background: #f9f5ed;
+    }
+
+    .pin-outline #write {
+        max-width: 1000px;
+        padding: 40px 60px;
+        background: #f9f5ed;
+        margin: 3em auto 3em;
+    }
+
+    .pin-outline footer {
+        background-color: transparent;
+    }
+
+    #footer-word-count-info {
+        background: #f5f5f5;
+    }
+}
+
+/* clear margin and padding */
+body, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, code, form, fieldset, legend, input, textarea, p, blockquote, th, td, hr, button, article, aside, details, figcaption, figure, footer, header, menu, nav, section {
+    margin: 0;
+    padding: 0;
+}
+
+article, aside, details, figcaption, figure, footer, header, menu, nav, section {
+    display: block;
+}
+
+audio, canvas, video {
+    display: inline-block;
+}
+
+body, button, input, select, textarea {
+    font: 400 1em/1.8 "font/han.otf", "PingFang SC", "Lantinghei SC", "Microsoft Yahei", "Hiragino Sans GB", "Microsoft Sans Serif", "WenQuanYi Micro Hei", sans;
+}
+
+body {
+    font-family: "font/han.otf", "PingFang SC", "Lantinghei SC", "Microsoft Yahei", "Hiragino Sans GB", "Microsoft Sans Serif", "WenQuanYi Micro Hei", sans;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "font/han.otf", "PingFang SC", "Lantinghei SC", "Microsoft Yahei", "Hiragino Sans GB", "Microsoft Sans Serif", "WenQuanYi Micro Hei", sans;
+    /*font-family: "PingFang SC", "Lantinghei SC", "Microsoft Yahei", "Hiragino Sans GB", "Microsoft Sans Serif", "WenQuanYi Micro Hei", sans;*/
+    -webkit-font-smoothing: initial;
+    font-weight: 100;
+    color: var(--text-color);
+    line-height: 1.35;
+    font-variant-numeric: lining-nums;
+    margin-bottom: 1em;
+}
+
+em {
+    font-family: "font/han.otf", Georgia-Italic, STSongti-SC-Light, serif;
+}
+
+strong em,
+em strong {
+    font-family: "font/han.otf", Georgia-BoldItalic, STSongti-SC-Regular, serif;
+}
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+    padding: 0;
+    border: 0;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+fieldset, img {
+    border: 0;
+}
+
+/* img 添加边框 */
+img {
+    background: white;
+    border-radius: .2rem;
+    padding: 0.3rem;
+    box-shadow: 1px 2px 4px gray;
+    text-align: center;
+}
+
+blockquote {
+    position: relative;
+    color: rgba(146, 115, 91, 0.81);
+    font-weight: 400;
+    border-left: 2px solid #6e4832;
+    padding-left: 1rem;
+    margin: 1em 3em 1em 1em;
+}
+
+@media only screen and ( max-width: 640px ) {
+    blockquote {
+        margin: 1em 0;
+    }
+}
+
+acronym, abbr {
+    border-bottom: 1px dotted;
+    font-variant: normal;
+}
+
+abbr {
+    cursor: help;
+}
+
+address, caption, cite, code, dfn, th, var {
+    font-style: normal;
+    font-weight: 400;
+}
+
+ul, ol {
+    list-style: none;
+}
+
+caption, th {
+    text-align: left;
+}
+
+q:before, q:after {
+    content: '';
+}
+
+sub, sup {
+    font-size: 75%;
+    line-height: 0;
+    position: relative;
+}
+
+:root sub, :root sup {
+    vertical-align: baseline; /* for ie9 and other modern browsers */
+}
+
+sup {
+    top: -0.5em;
+}
+
+sub {
+    bottom: -0.25em;
+}
+
+/* a border bottom styles */
+a {
+    color: #4484c2;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+#write a {
+    font-weight: normal;
+}
+
+#write a:hover {
+    text-decoration: none;
+    border-bottom: 1px solid #4484c2;
+}
+
+ins, a {
+    text-decoration: none;
+}
+
+/* mark */
+mark {
+    background: #fffdd1;
+    border-bottom: 1px solid #ffedce;
+    padding: 2px;
+    margin: 0 5px;
+}
+
+pre, code, pre tt {
+    font-family: Courier, 'Courier New', monospace;
+}
+
+#write .md-fences {
+    border: 1px solid #ddd;
+    padding: 1em 0.5em;
+    display: block;
+    -webkit-overflow-scrolling: touch;
+}
+
+hr {
+    border: none;
+    border-bottom: 1px solid #cfcfcf;
+    margin-bottom: 0.8em;
+    height: 10px;
+}
+
+strong, b {
+    font-weight: 700;
+    /*color: #000;*/
+}
+
+/* 段落之间的间隔 */
+#write p, #write .md-fences, #write ul, #write ol, #write dl, #write form, #write hr, #write figure,
+#write-p, #write-pre, #write-ul, #write-ol, #write-dl, #write-form, #write-hr, #write-table, blockquote {
+    margin-bottom: 1.2em
+}
+
+html {
+    font-family: "font/han.otf", PingFang SC, Verdana, Helvetica Neue, Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, sans-serif;
+}
+
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6,
+#write-h1, #write-h2, #write-h3, #write-h4, #write-h5, #write-h6 {
+    margin-bottom: 0.6em;
+    line-height: 1.35;
+    color: #6e4832;
+    font-weight: bolder;
+}
+
+#write h1, #write-h1 {
+    font-size: 2.4em;
+    padding-bottom: 0.3em;
+    border-bottom: 3px double #eee;
+}
+
+#write h2, #write-h2 {
+    font-size: 1.8em;
+}
+
+#write h3, #write-h3 {
+    font-size: 1.6em;
+}
+
+#write h4, #write-h4 {
+    font-size: 1.4em;
+}
+
+#write h5, #write h6, #write-h5, #write-h6 {
+    font-size: 1.2em;
+}
+
+/* 在文章中的 ul 和 ol 的样式 */
+#write ul, #write-ul {
+    margin-left: 1.3em;
+    list-style: disc;
+}
+
+#write ol, #write-ol {
+    list-style: decimal;
+    margin-left: 1.9em;
+}
+
+#write li ul, #write li ol, #write-ul ul, #write-ul ol, #write-ol ul, #write-ol ol {
+    margin-bottom: 0.8em;
+    margin-left: 2em;
+}
+
+#write li ul, #write-ul ul, #write-ol ul {
+    list-style: circle;
+}
+
+[mdtype="table_row"] > th,
+[mdtype="table_row"] > td {
+    border: 1px solid #ddd;
+    padding: 0.5em 1em;
+    color: rgba(110, 72, 50, 0.74);
+}
+
+#write table th, #write-table th {
+    background: #fbfbfb;
+}
+
+#write table thead th, #write-table thead th {
+    background: rgba(251, 240, 211, 0.76);
+}
+
+#write table caption {
+    border-bottom: none;
+}
+
+#write em {
+    font-weight: inherit;
+    font-style: inherit;
+}
+
+li > p {
+    margin-bottom: 0 !important;
+}
+
+/* Responsive images */
+#write img {
+    max-width: 100%;
+}
+
+a.md-toc-inner {
+    border-bottom: 0 !important;
+}
+
+.md-toc-h1:first-of-type:last-of-type {
+    display: none;
+}
+
+.md-toc {
+    font-size: inherit;
+}
+
+.md-toc-h1 .md-toc-inner {
+    font-weight: normal;
+}
+
+.md-table-edit th {
+    padding: 0 !important;
+    border: 0 !important;
+}
+
+.mac-seamless-mode #write {
+    min-height: calc(100vh - 6em - 20px);
+}
+
+.typora-quick-open-item.active {
+    color: var(--active-file-text-color);
+}
+
+*.in-text-selection, ::selection {
+    background: var(--active-file-bg-color);
+    text-shadow: none;
+    color: white;
+}
+
+.btn-primary {
+    background-color: #2d2d2d;
+    border-color: #020202;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary.focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
+    background-color: #4e4c4e;
+    border: #4e4c4e;
+}
+
+#preference-dialog .modal-content {
+    background: #6e757a;
+    --bg-color: #6e757a;
+    --text-color: #f1f1f1;
+    color: #f1f1f1;
+}
+
+/* 角标颜色 */
+sup.md-footnote {
+    color: #6e4832;
+}
+
+.task-list {
+    list-style: none !important;
+}
+
+/* checked box 效果 */
+.task-list-item input {
+    width: 1.25rem;
+    height: 1.25rem;
+    display: block;
+    -webkit-appearance: initial;
+    left: -18px;
+}
+
+.task-list-item input:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.task-list-item input:before {
+    border: 2px solid #6e4832;
+    border-radius: 1.2rem;
+    width: 1.2rem;
+    height: 1.2rem;
+    content: ' ';
+    transition: background-color 200ms ease-in-out;
+    display: block;
+}
+
+.task-list-item input:checked:before,
+.task-list-item input[checked]:before {
+    -webkit-appearance: initial;
+    background: #6e4832;
+    border-width: 2px;
+    display: inline-block;
+    transition: background-color 200ms ease-in-out;
+}
+
+.task-list-item input:checked:after,
+.task-list-item input[checked]:after {
+    opacity: 1;
+}
+
+.task-list-item input:after {
+    opacity: 1;
+    -webkit-transition: opacity 0.05s ease-in-out;
+    -moz-transition: opacity 0.05s ease-in-out;
+    transition: opacity 0.05s ease-in-out;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    position: absolute;
+    top: 0.325rem;
+    left: 0.28125rem;
+    width: 0.6375rem;
+    height: 0.4rem;
+    border: 3px solid #f9f5ed;
+    border-top: 0;
+    border-right: 0;
+    content: ' ';
+    opacity: 0;
+}
+
+.task-list-done {
+    text-decoration: line-through;
+}
+
+.md-grid-board a:hover,
+.md-grid-board a.md-active {
+    border-color: #a1a1a1;
+    background: #f9edc5;
+}
+
+.md-grid-board tr[row='1'] a:hover,
+.md-grid-board tr[row='1'] a.md-active {
+    background: #5e3e2b;
+}
+
+
+
+ .typora-export li, .typora-export p, .typora-export,  .footnote-line {white-space: normal;} 
+</style>
+</head>
+<body class='typora-export' >
+<div  id='write'  class = 'is-mac'><h3><a name="第1章明确分析问题" class="md-header-anchor"></a><span>第1章.明确分析问题</span></h3><ul><li><p><span>Why：为什么分析</span></p><ul><li><p><span>从拍脑袋决策到数据分析解决企业业务难题</span></p><ul><li><span>识别机会：市场机会存在于消费者尚未被满足的需求里。案例：施乐打印机(佳能✅)</span></li><li><span>规避风险：脚本法：列举一系列未来发生悲观变化的事件，分析可能性以及影响程度。案例：壳牌✅</span></li><li><span>问题诊断：如果不能量化它就不能了解它，如果不能了解就不能控制它，如不能控制它就不能改变它</span></li></ul></li></ul></li></ul><p><span>市场营销：企业在现有的营销环境下，根据目标消费者的需求，利用现有资源和能力，比竞争对手更快捷更有效的向目标消费者提供产品和服务，实现企业盈利以及可持续发展的生产和经营活动                                                                                             </span></p><ul><li><p><span>What：分析什么</span></p><ul><li><p><span>做什么：</span></p><ul><li><p><span>业务选择：战略分析</span></p><ul><li><span>宏观环境：机会</span></li><li><span>市场环境：威胁</span></li><li><span>竞争环境：自身的优势和劣势(SWOP分析)</span></li></ul></li></ul></li><li><p><span>做给谁：</span></p><ul><li><p><span>用户偏好分析：根据消费者的客观需求提供产品和服务</span></p></li><li><p><span>有效选择用户：STP分析：企业的对象是目标消费者</span></p><ul><li><span>市场细分(Segmentation)</span></li><li><span>目标市场(Targeting)：从企业吸引力和竞争力选择适合自己的目标市场</span></li><li><span>定位(Positioning)：根据目标市场需求明确市场定位提供配套营销组合</span></li></ul></li></ul></li><li><p><span>怎么做</span></p><ul><li><span>品牌建设分析：是建立有效市场区隔，获取品牌溢价的关键</span></li><li><span>营销组合分析：是企业提升自身竞争力的关键</span></li></ul></li></ul></li><li><p><span>How如何分析</span></p><ul><li><p><span>开启分析思路</span></p><ul><li><span>学会提问、熟悉模型、掌握结构</span></li></ul></li><li><p><span>打开分析视角</span></p><ul><li><span>对比视角、相关视角、分类视角、描述视角</span></li></ul></li></ul></li></ul><h3><a name="第2章-开启分析思路" class="md-header-anchor"></a><span>第2章 开启分析思路</span></h3><p><span>分析思维是从研究目的到研究内容的分解过程，是对需求的细化：学会提问、熟悉模型、掌握结构化思维</span></p><ul><li><p><span>学会提问</span></p></li><li><p><span>熟悉模型：一般经典模型符合MECE(相互独立，完全穷尽)</span></p></li><li><p><span>结构化思维：结构和时间思维、演绎思维、重要性思维</span></p><ul><li><p><span>结构与时间思维常常并用(</span><strong><span>天地四方为宇，古往今来为宙</span></strong><span>)</span></p><ul><li><p><span>时间线索：用户行为5阶段</span></p><ul><li><span>产生需求</span></li><li><span>信息收集</span></li><li><span>方案比选</span></li><li><span>购买决策</span></li><li><span>购后行为</span></li></ul></li><li><p><span>结构线索：询问用户行为的构成要素</span><strong><span>5W2H分析法</span></strong></p><ul><li><span>When</span></li><li><span>Where</span></li><li><span>Who</span></li><li><span>What</span></li><li><span>Why</span></li><li><span>How</span></li><li><span>How much</span></li></ul></li></ul></li><li><p><span>演绎思维：由共性原理推演出个性结论的方法。标准式和常见式</span></p><ul><li><p><span>标准式演绎基本三段论(大前提、小前提、结论)</span></p></li><li><p><span>常见式演绎：4W(兰德公司)</span></p><ul><li><span>描述现象：What is going on?</span></li><li><span>分析原因：Why did this happen?</span></li><li><span>判断趋势：What lies ahead?</span></li><li><span>提出对策：Which course of action should i take?</span></li></ul></li></ul></li></ul></li><li><p><span>重要性思维</span></p><ul><li><p><span>KANO模型</span></p><ul><li><span>必备属性</span></li><li><span>一级属性</span></li><li><span>魅力属性</span></li><li><span>可有可无属性</span></li></ul></li></ul></li></ul><h3><a name="第3章-打开分析视角" class="md-header-anchor"></a><span>第3章 打开分析视角</span></h3><ul><li><p><span>对比视角</span></p><ul><li><p><span>对比类型</span></p><ul><li><p><span>按参照物：</span><strong><span>纵向对比</span></strong><span>(自己,过去和现在，形成时间序列)和</span><strong><span>横向对比</span></strong><span>(被人对比，自己的优势和劣势形成截面数据)</span></p></li><li><p><span>按对比指标性质：频数统计与均值分析</span></p><ul><li><span>分类型数据，运用频数统计</span></li><li><span>数值型数据，运用均值分析</span></li></ul></li></ul></li><li><p><span>对比的可信度</span></p><ul><li><span>时间的可比性：一年的同一时期不一定有可比性，如17、18年3月前10天中周末天数不一致，会导致如零售业销量没有可比性</span></li><li><span>空间的可比性：如美西战争中，美国海军的死亡率是9‰，而美国的居民死亡率是16‰，征兵广告时就得出参军更安全。其实参军都是年轻强壮的人，居民死亡率更高是老人和孩子抬高的，因此统计口径不同造成的错误结论，应该是不同的年龄段的死亡率。因此在空间上要有可比性。</span></li></ul></li><li><p><span>数量上的可比性</span></p><ul><li><span>对比要定量：如进行SWOT分析时，机会、威胁、优势、劣势无法量化，可用内外因素评价矩阵</span></li><li><span>对比对象要同量纲</span></li></ul></li></ul></li><li><p><span>相关视角：相关视角：事物间的某种联系，可能是因果关系，也可能是共存关系，可开展规模预测和精准营销</span></p><ul><li><p><span>规模预测</span></p><ul><li><p><span>道格拉斯生产模型：</span></p><div contenteditable="false" spellcheck="false" class="mathjax-block md-end-block md-math-block md-rawblock" id="mathjax-n178" cid="n178" mdtype="math_block">
+			
+		<div class="md-rawblock-container md-math-container" tabindex="-1"><div class="MathJax_SVG_Display" style="text-align: center;"><span class="MathJax_SVG" id="MathJax-Element-1-Frame" tabindex="-1" style="font-size: 100%; display: inline-block;"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="13.514ex" height="3.033ex" viewBox="0 -991.6 5818.4 1306.1" role="img" focusable="false" style="vertical-align: -0.73ex; max-width: 100%;"><defs><path stroke-width="0" id="E2-MJMATHI-79" d="M21 287Q21 301 36 335T84 406T158 442Q199 442 224 419T250 355Q248 336 247 334Q247 331 231 288T198 191T182 105Q182 62 196 45T238 27Q261 27 281 38T312 61T339 94Q339 95 344 114T358 173T377 247Q415 397 419 404Q432 431 462 431Q475 431 483 424T494 412T496 403Q496 390 447 193T391 -23Q363 -106 294 -155T156 -205Q111 -205 77 -183T43 -117Q43 -95 50 -80T69 -58T89 -48T106 -45Q150 -45 150 -87Q150 -107 138 -122T115 -142T102 -147L99 -148Q101 -153 118 -160T152 -167H160Q177 -167 186 -165Q219 -156 247 -127T290 -65T313 -9T321 21L315 17Q309 13 296 6T270 -6Q250 -11 231 -11Q185 -11 150 11T104 82Q103 89 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z"></path><path stroke-width="0" id="E2-MJMAIN-3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path><path stroke-width="0" id="E2-MJMATHI-41" d="M208 74Q208 50 254 46Q272 46 272 35Q272 34 270 22Q267 8 264 4T251 0Q249 0 239 0T205 1T141 2Q70 2 50 0H42Q35 7 35 11Q37 38 48 46H62Q132 49 164 96Q170 102 345 401T523 704Q530 716 547 716H555H572Q578 707 578 706L606 383Q634 60 636 57Q641 46 701 46Q726 46 726 36Q726 34 723 22Q720 7 718 4T704 0Q701 0 690 0T651 1T578 2Q484 2 455 0H443Q437 6 437 9T439 27Q443 40 445 43L449 46H469Q523 49 533 63L521 213H283L249 155Q208 86 208 74ZM516 260Q516 271 504 416T490 562L463 519Q447 492 400 412L310 260L413 259Q516 259 516 260Z"></path><path stroke-width="0" id="E2-MJMATHI-4B" d="M285 628Q285 635 228 637Q205 637 198 638T191 647Q191 649 193 661Q199 681 203 682Q205 683 214 683H219Q260 681 355 681Q389 681 418 681T463 682T483 682Q500 682 500 674Q500 669 497 660Q496 658 496 654T495 648T493 644T490 641T486 639T479 638T470 637T456 637Q416 636 405 634T387 623L306 305Q307 305 490 449T678 597Q692 611 692 620Q692 635 667 637Q651 637 651 648Q651 650 654 662T659 677Q662 682 676 682Q680 682 711 681T791 680Q814 680 839 681T869 682Q889 682 889 672Q889 650 881 642Q878 637 862 637Q787 632 726 586Q710 576 656 534T556 455L509 418L518 396Q527 374 546 329T581 244Q656 67 661 61Q663 59 666 57Q680 47 717 46H738Q744 38 744 37T741 19Q737 6 731 0H720Q680 3 625 3Q503 3 488 0H478Q472 6 472 9T474 27Q478 40 480 43T491 46H494Q544 46 544 71Q544 75 517 141T485 216L427 354L359 301L291 248L268 155Q245 63 245 58Q245 51 253 49T303 46H334Q340 37 340 35Q340 19 333 5Q328 0 317 0Q314 0 280 1T180 2Q118 2 85 2T49 1Q31 1 31 11Q31 13 34 25Q38 41 42 43T65 46Q92 46 125 49Q139 52 144 61Q147 65 216 339T285 628Z"></path><path stroke-width="0" id="E2-MJMATHI-3B1" d="M34 156Q34 270 120 356T309 442Q379 442 421 402T478 304Q484 275 485 237V208Q534 282 560 374Q564 388 566 390T582 393Q603 393 603 385Q603 376 594 346T558 261T497 161L486 147L487 123Q489 67 495 47T514 26Q528 28 540 37T557 60Q559 67 562 68T577 70Q597 70 597 62Q597 56 591 43Q579 19 556 5T512 -10H505Q438 -10 414 62L411 69L400 61Q390 53 370 41T325 18T267 -2T203 -11Q124 -11 79 39T34 156ZM208 26Q257 26 306 47T379 90L403 112Q401 255 396 290Q382 405 304 405Q235 405 183 332Q156 292 139 224T121 120Q121 71 146 49T208 26Z"></path><path stroke-width="0" id="E2-MJMATHI-4C" d="M228 637Q194 637 192 641Q191 643 191 649Q191 673 202 682Q204 683 217 683Q271 680 344 680Q485 680 506 683H518Q524 677 524 674T522 656Q517 641 513 637H475Q406 636 394 628Q387 624 380 600T313 336Q297 271 279 198T252 88L243 52Q243 48 252 48T311 46H328Q360 46 379 47T428 54T478 72T522 106T564 161Q580 191 594 228T611 270Q616 273 628 273H641Q647 264 647 262T627 203T583 83T557 9Q555 4 553 3T537 0T494 -1Q483 -1 418 -1T294 0H116Q32 0 32 10Q32 17 34 24Q39 43 44 45Q48 46 59 46H65Q92 46 125 49Q139 52 144 61Q147 65 216 339T285 628Q285 635 228 637Z"></path><path stroke-width="0" id="E2-MJMATHI-3B2" d="M29 -194Q23 -188 23 -186Q23 -183 102 134T186 465Q208 533 243 584T309 658Q365 705 429 705H431Q493 705 533 667T573 570Q573 465 469 396L482 383Q533 332 533 252Q533 139 448 65T257 -10Q227 -10 203 -2T165 17T143 40T131 59T126 65L62 -188Q60 -194 42 -194H29ZM353 431Q392 431 427 419L432 422Q436 426 439 429T449 439T461 453T472 471T484 495T493 524T501 560Q503 569 503 593Q503 611 502 616Q487 667 426 667Q384 667 347 643T286 582T247 514T224 455Q219 439 186 308T152 168Q151 163 151 147Q151 99 173 68Q204 26 260 26Q302 26 349 51T425 137Q441 171 449 214T457 279Q457 337 422 372Q380 358 347 358H337Q258 358 258 389Q258 396 261 403Q275 431 353 431Z"></path><path stroke-width="0" id="E2-MJMATHI-3BC" d="M58 -216Q44 -216 34 -208T23 -186Q23 -176 96 116T173 414Q186 442 219 442Q231 441 239 435T249 423T251 413Q251 401 220 279T187 142Q185 131 185 107V99Q185 26 252 26Q261 26 270 27T287 31T302 38T315 45T327 55T338 65T348 77T356 88T365 100L372 110L408 253Q444 395 448 404Q461 431 491 431Q504 431 512 424T523 412T525 402L449 84Q448 79 448 68Q448 43 455 35T476 26Q485 27 496 35Q517 55 537 131Q543 151 547 152Q549 153 557 153H561Q580 153 580 144Q580 138 575 117T555 63T523 13Q510 0 491 -8Q483 -10 467 -10Q446 -10 429 -4T402 11T385 29T376 44T374 51L368 45Q362 39 350 30T324 12T288 -4T246 -11Q199 -11 153 12L129 -85Q108 -167 104 -180T92 -202Q76 -216 58 -216Z"></path></defs><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><use xlink:href="#E2-MJMATHI-79" x="0" y="0"></use><use xlink:href="#E2-MJMAIN-3D" x="774" y="0"></use><use xlink:href="#E2-MJMATHI-41" x="1830" y="0"></use><g transform="translate(2580,0)"><use xlink:href="#E2-MJMATHI-4B" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#E2-MJMATHI-3B1" x="1274" y="583"></use></g><g transform="translate(4034,0)"><use xlink:href="#E2-MJMATHI-4C" x="0" y="0"></use><use transform="scale(0.707)" xlink:href="#E2-MJMATHI-3B2" x="963" y="583"></use></g><use xlink:href="#E2-MJMATHI-3BC" x="5215" y="0"></use></g></svg></span></div><script type="math/tex; mode=display" id="MathJax-Element-1">y = AK^αL^βμ</script></div></div><p><span>其中，y是产出,AKL分别是技术,资本,和劳动力,α为资本弹性系数,β为劳动力弹性系数,μ是随机干扰项</span></p></li></ul></li><li><p><span>精准营销</span></p><ul><li><span>方差分析：SST(总体信息) = SSR(组间差异) + SSE(组内差异)</span></li></ul></li></ul></li><li><p><span>分类视角</span></p><ul><li><p><span>分类的价值:物以类聚，人以群分，降低营销成本</span></p></li><li><p><span>分类的步骤与方法：</span></p><ul><li><span>如用一个维度就能把客户的差异分出来，就采用，如食品客户用地域，服装客户用性别</span></li><li><span>如效果不佳，可增加分类维度</span></li></ul></li></ul></li><li><p><span>描述视角</span></p><ul><li><span>集中趋势与离中趋势(平均数和方差)</span></li></ul></li></ul><h4><a name="方法与应用" class="md-header-anchor"></a><span>方法与应用</span></h4><p><img src="/Users/libo/Desktop/WechatIMG2 2.jpeg" alt="WechatIMG2 2" style="zoom:67%;" /></p><p><img src="/Users/libo/Desktop/WechatIMG1 2.jpeg" alt="WechatIMG1 2" style="zoom:67%;" /></p><p>&nbsp;</p><h3><a name="第4章网上商城战略分析" class="md-header-anchor"></a><span>第4章网上商城战略分析</span></h3><ul><li><p><span>研究目的：战略选择(战略本质是抉择、权衡和各适其位)</span></p><ul><li><p><span>选择目标市场</span></p><ul><li><span>市场吸引力</span></li><li><span>企业竞争力</span></li></ul></li></ul></li><li><p><span>研究内容：环境分析</span></p><ul><li><p><span>判断市场吸引力</span></p><ul><li><span>分析宏观环境</span></li><li><span>市场环境</span></li></ul></li><li><p><span>判断企业吸引力：分析竞争环境</span></p></li></ul><p><span>因此战略选择的分析内容即为环境分析，包括宏观环境、市场环境、和竞争环境分析</span></p><ul><li><p><span>宏观环境分析：影响市场的各种宏观因素即为PEST，判断哪些是机会，哪些是威胁</span></p><ul><li><span>政治环境(Political)</span></li><li><span>经济环境(Economic)</span></li><li><span>技术环境(Technological)</span></li><li><span>社会文化环境(Social)</span></li></ul></li><li><p><span>市场环境分析</span></p><p><span>市场环境是指市场的具体现状。企业倾向寻找规模足够大利润足够高增长性足够足，及处于成长期的市场</span></p></li><li><p><span>竞争环境分析：波特五力</span></p><ul><li><span>供应商</span></li><li><span>购买者</span></li><li><span>直接竞争对手</span></li><li><span>替代品</span></li><li><span>潜在进入者</span></li></ul></li></ul></li><li><p><span>定性与定量分析方法</span></p><ul><li><p><span>定性：SWOT分析：只是定性研究，只能战略梳理，不能战略选择</span></p></li><li><p><span>定量：内外因素评价矩阵</span></p><ul><li><span>机会和威胁是用来判断市场吸引力的，市场有没有吸引力对企业来说是外部因素，因此机会和威胁是企业的外部因素</span></li><li><span>优势和劣势是用来判断企业的竞争力，有没有竞争力是企业的内在表现，因此优势和劣势是企业的每部因素</span></li><li><span>内部因素评价矩阵(Internal Gactor Evaluation Matrix,IFE矩阵)量化和对比的是SWOT分析的优势和劣势，以刻画企业的竞争力；</span></li><li><span>外部因素评价矩阵(External Factor Matrix矩阵)量化和对比的是SWOT分析中的机会和威胁，刻画市场的吸引力。内外因素评价矩阵是对IFE和EFE矩阵的统称。</span></li></ul><p><span>如何定量的呢？</span></p><ol start='' ><li><span>分别计算各个因素的评价和权重</span></li><li><span>分别计算机会、威胁、优势、劣势的加权平均数</span></li><li><span>用加权平均的大小判断市场的吸引力和竞争力，并给出相应的战略建议</span></li></ol></li></ul></li><li><p><span>内外因素数据获取</span></p><p><span>内外因素评价矩阵的评分数据来源有两种：专家访谈和市场调研，一般来说专家对政策导向、经济发展、文化特征、技术前沿等方面有深入研究，专家适合做外部因素评分；而消费者对产品或服务有切身体验，因此市场调研适合做企业内部因素评分。</span></p></li><li><p><span>评分的计算</span></p><ul><li><span>因素的加权平均数</span></li><li><span>因素的权重：变异系数反映取值的差异和波动，在数值上等于标准差除以均值</span></li></ul></li><li><p><span>制作战略选择矩阵图及解读</span></p><ul><li><span>市场吸引力(机会/威胁)</span></li><li><span>企业竞争力(优势/劣势)</span></li></ul></li></ul><p><span>案例：</span></p><ol start='' ><li><span>计算评分 ------------加权平均法</span></li><li><span>确定权重 ------------变异系数法</span></li><li><span>计算最终得分------加权平均数</span></li><li><span>计算最终得分比值-(机会/威胁，优势/劣势)</span></li><li><span>制作战略选择矩阵图---(SO战略，ST战略，WO战略，WT战略)</span></li></ol><h3><a name="5-差异化营销" class="md-header-anchor"></a><span>5 差异化营销</span></h3><ul><li><p><span>研究目的：差异化营销</span></p><ul><li><span>由于用户偏好存在差异性，差异化营销可以最大限度的满足用户需求，从而使企业经营业绩得以提升</span></li></ul></li><li><p><span>研究内容：五阶段和七要素</span></p></li><li><p><span>用户偏好数据获取：调查问卷</span></p><ul><li><span>调查方法</span></li><li><span>调查对象</span></li><li><span>调查地点与样本量</span></li><li><span>项目周期</span></li><li><span>项目成员与职责</span></li><li><span>项目质量与进度控制</span></li></ul></li><li><p><span>数据录入</span></p></li><li><p><span>调研数据处理</span></p><ul><li><p><span>数据清洗</span></p><ul><li><p><span>数据集成：将来自多个数据源的数据合并到一起</span></p></li><li><p><span>数据转换：将数据进行标准化处理</span></p></li><li><p><span>数据消减：通过因子分析，将数据聚合和降维，缩小数据的规模</span></p></li><li><p><span>数据清洗</span></p><ul><li><span>数据筛选</span></li><li><span>数据查重</span></li><li><span>数据补缺</span></li><li><span>数据纠错</span></li></ul></li></ul></li></ul></li></ul><h3><a name="第6章" class="md-header-anchor"></a><span>第6章</span></h3><ul><li><p><span>研究目的：精准营销</span></p></li><li><p><span>研究内容：客户分类维度(前三个是事前分类维度&lt;表露在外的&gt;，后两个是事后分类维度&lt;隐藏于内的&gt;)</span></p><ul><li><span>自然属性因素--客户作为自然人的性别、年龄、地域等属性</span></li><li><span>社会特征因素--客户作为社会人的收入、职业、教育程度等属性</span></li><li><span>行为特征因素--客户在购买过程中对媒体、渠道、产品、服务、价格、品牌选择、以及购买数量和频次等行为特征</span></li><li><span>态度偏好因素--客户的心理需求、购买动机、使用习惯、使用体验与态度倾向等</span></li><li><span>生活态度与个性因素--客户的生活方式、价值观与个性特点等</span></li></ul></li><li><p><span>数据获取与处理</span></p><ul><li><p><span>调查问卷</span></p></li><li><p><span>调研计划</span></p><ul><li><span>调查方法</span></li><li><span>调查对象</span></li><li><span>调查地点与样本量</span></li><li><span>项目周期</span></li><li><span>项目成员及其职责</span></li><li><span>项目质量与进度控制</span></li></ul></li><li><p><span>数据处理(SPSS)</span></p></li></ul></li><li><p><span>数据分析框架(STP)</span></p><ul><li><p><span>客户细分</span></p><ul><li><span>确定和处理分类维度</span></li><li><span>客户细分与效果检验</span></li></ul></li><li><p><span>目标客户选择</span></p><ul><li><span>确定衡量指标</span></li><li><span>计算客户吸引力</span></li><li><span>计算企业竞争力</span></li><li><span>绘制矩阵图</span></li></ul></li><li><p><span>目标客户定位</span></p><ul><li><span>特征描述</span></li><li><span>需求定位</span></li></ul></li></ul></li><li><p><span>数据分析与输出结果</span></p><ul><li><p><span>确定分类维度</span></p></li><li><p><span>分类维度的数据消减</span></p></li><li><p><span>分类维度的数据转化</span></p></li><li><p><span>细分方法的选择</span></p><ul><li><span>层次聚类</span></li><li><span>迭代聚类</span></li></ul></li><li><p><span>聚类分析</span></p><ul><li><span>确定类别数</span></li><li><span>保存聚类成员</span></li><li><span>聚类效果检验</span></li><li><span>细分客户命名</span></li></ul></li><li><p><span>目标客户选择</span></p><ul><li><span>确定衡量指标</span></li><li><span>计算客户吸引力</span></li><li><span>计算企业竞争力</span></li><li><span>绘制矩阵图</span></li></ul></li><li><p><span>目标客户定位</span></p><ul><li><span>目标客户特征描述</span></li><li><span>目标客户需求定位</span></li></ul></li></ul></li></ul><h3><a name="第7章" class="md-header-anchor"></a><span>第7章 </span></h3><ul><li><p><span>研究目的：提升品牌价值</span></p><ul><li><span>功能价值的载体是产品，精神价值的载体是品牌</span></li><li><span>品牌的价值：希望获得品牌溢价</span></li></ul></li><li><p><span>研究内容： </span></p><ul><li><p><span>品牌形象分析：在消费者心目中的</span><strong><span>印象</span></strong></p></li><li><p><span>品牌知名度分析：在消费之心目中中的</span><strong><span>地位</span></strong></p></li><li><p><span>品牌定位是我(企业)在自己胸前贴的标签，品牌形象是消费者凭着品牌印象在我(企业)胸前贴的标签</span></p></li><li><p><span>品牌流转分析</span></p><ul><li><span>正常品牌</span></li><li><span>衰退品牌</span></li><li><span>利基品牌</span></li><li><span>强势品牌</span></li></ul></li></ul></li><li><p><span>数据获取与处理</span></p></li><li><p><span>对调研数据进行录入和整理得到三类数据:品牌形象数据、品牌知名度数据和品牌流转数据</span></p></li><li><p><span>品牌形象分析图解读</span></p><ul><li><p><span>品牌知觉图基本思想</span></p><ul><li><span>圆心定理</span></li><li><span>向量分析</span></li><li><span>余弦定理</span></li><li><span>原点定理</span></li></ul></li></ul></li><li><p><span>品牌知名度分析与解读</span></p><ul><li><p><span>Graveyard模型：以提示后知名度为横坐标，提示前知名度为纵坐标，回归拟合线将品牌分为4中类型</span></p><ul><li><span>正常品牌</span></li><li><span>衰退品牌</span></li><li><span>利基品牌</span></li><li><span>强势品牌</span></li></ul></li></ul></li><li><p><span>品牌流转分析与解读：衡量品牌用户流失程度：品牌转化率 = 总体转化率+上一步转化率</span></p><ul><li><span>总体转化率：有多大比例的潜在用户最终转化成该品牌的现实用户</span></li><li><span>上一步转化率：在上一阶段选择某品牌的用户有多大的比例在这一阶段也选择了该品牌</span></li></ul><p><span>用户行为五阶段对应的品牌资产依次是知名度、熟悉度、美誉度、购买度、满意度、忠诚度</span></p></li></ul><h3><a name="第8章" class="md-header-anchor"></a><span>第8章</span></h3><ul><li><p><span>研究目的：营销决策</span></p><ul><li><span>产品、价格、渠道和促销合称营销组合</span></li></ul></li><li><p><span>研究内容：营销组合分析</span></p><ul><li><p><span>产品决策分析</span></p><ul><li><p><span>规模预测分析</span></p><ul><li><span>市场规模预测</span></li><li><span>产出规模预测</span></li></ul></li><li><p><span>产品属性分析：根据市场需求</span></p></li></ul></li><li><p><span>定价决策分析：重要性在于各种营销组合手段最终都会聚焦在定价决策上</span></p></li><li><p><span>流量渠道价值评价：渠道为王</span></p></li><li><p><span>促销资源配置分析</span></p></li></ul></li><li><p><span>规模预测</span></p><ul><li><p><span>已知→未知，需要已知和未知具有相似性或相关性                结构思维</span></p><ul><li><p><span>基于相似性的推断思路：类推原则</span></p><ul><li><span>类比法</span></li></ul></li><li><p><span>基于相关性的推断思路：相关原则</span></p><ul><li><span>市场因素推算法：定性(消费者、购买欲望、购买量)</span></li><li><span>回归分析：定量</span></li></ul></li></ul></li><li><p><span>过去→未来                                                                                  时间思维</span></p><ul><li><p><span>需要市场具有一定的惯性：惯性原则</span><span>								</span></p><ul><li><span>移动平均法</span></li><li><span>指数平滑法</span></li><li><span>曲线估计</span></li><li><span>一般线性模型</span></li><li><span>ARIMA模型</span></li><li><span>季节分解法</span></li></ul></li></ul></li></ul></li><li><p><span>回归预测</span></p><ul><li><span>整理数据源与线性化</span></li><li><span>调用回归分析工具</span></li><li><span>确定参数值</span></li><li><span>假设检验</span></li><li><span>回归预测</span></li></ul></li><li><p><span>产品属性分析：常用KANO模型筛选属性</span></p><ul><li><p><span>KANO模型产品属性分类：根据用户对产品属性的反映分为5类</span></p><ul><li><span>必备属性(M)：最核心属性</span></li><li><span>一维属性(O)：与用户态度线性正相关的属性</span></li><li><span>魅力属性(A)：超出用户期望的属性</span></li><li><span>可有可无属性(I)</span></li><li><span>厌恶属性(R)</span></li></ul></li><li><p><span>KANO模型的两大原则：新产品开发中，KANO模型的价值是确定新产品属性的开发顺序</span></p><ul><li><span>优先原则(M&gt;O&gt;A&gt;I)</span></li><li><span>组合原则(M+O+A)：一个有竞争力的产品必须有三部分组成：包含或满足所有的必需属性+领先竞争对手的一维属性+差异化的魅力属性</span></li></ul></li><li><p><span>KANO模型的注意事项</span></p><ul><li><span>用户的差异性</span></li><li><span>用户需求的发展性</span></li></ul></li><li><p><span>Better_Worse系数矩阵</span></p></li></ul></li><li><p><span>定价决策分析：PSM模型</span></p><ul><li><p><span>PSM(Price Sensitivity Measurement)模型即价格敏感度测试模型，不需预先给出价格，让受访者表示可接受价格</span></p><ul><li><span>最优价格点</span></li><li><span>可接受价格区间</span></li><li><span>不同市场规模</span></li></ul></li></ul></li><li><p><span>流量渠道价值评价</span></p><ul><li><p><span>确定影响因素(规模、互动、转化、收益)</span></p><ul><li><span>流量：获取访客(</span><strong><span>规模</span></strong><span>)</span></li><li><span>承接：进行</span><strong><span>互动</span></strong></li><li><span>交易：实现</span><strong><span>转化</span></strong><span>和</span><strong><span>收益</span></strong></li></ul></li><li><p><span>评价指标：ROI与Engagement</span></p><ul><li><p><span>ROI(Return on Investment)投资回报率，同时体现对流量规模、转化、收益三个因素的考量，但是不能只用ROI来作为考核流量渠道价值的KPI，因为没有涵盖互动，可以结合Engagement</span></p></li><li><p><span>Engagement(用户参与度)</span></p><ul><li><span>数量指标：PV(页面浏览数)，visit(访问数)</span></li><li><span>质量指标：Landing Rate(到达率)、Bounce rate(跳出率)、Time on page(页面停留时间)、Pageview(浏览深度)、Sessioon(用户访问频度)，Recency(用户新近度)</span></li><li><span>量化指标是参与度指数</span></li></ul></li></ul></li><li><p><span>评价方法：矩阵分析</span></p></li><li><p><span>评价方法：归因分析：归因分析解决的是合作博弈中，所有参与者的价值评价与利益分配问题，价值评价是利益分配的基础和依据</span></p><ul><li><p><span>分析工具：</span></p><ul><li><span>Google Analysics</span></li><li><span>Visual IQ</span></li><li><span>Convertro</span></li><li><span>AppsFlyer</span></li></ul></li><li><p><span>归因分析模型</span></p><ul><li><span>最后交互模型(last model)</span></li><li><span>第一次交互模型(First model)</span></li><li><span>平均模型(Average model)</span></li><li><span>时间衰减模型(Decay model)</span></li><li><span>自定义模型(Customized Model)</span></li></ul></li></ul></li></ul></li><li><p><span>促销资源配置</span></p><ul><li><p><span>界定问题与方法选择</span></p><ul><li><span>线性规划：(Linear Programming ,LP)</span></li></ul></li><li><p><span>资源配置三要素</span></p><ul><li><span>目标函数</span></li><li><span>约束条件</span></li><li><span>决策变量</span></li></ul></li></ul></li></ul></div>
+</body>
+</html>
